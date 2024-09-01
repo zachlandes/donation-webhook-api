@@ -67,4 +67,16 @@ async def health_check():
 
 @app.get("/")
 async def root():
+    logger.info("Root route accessed")
     return {"message": "Welcome to the Donation Webhook Service"}
+
+@app.head("/")
+async def head_root():
+    return {}
+
+@app.middleware("http")
+async def log_requests(request: Request, call_next):
+    logger.info(f"Received {request.method} request to {request.url.path}")
+    response = await call_next(request)
+    logger.info(f"Returned {response.status_code} for {request.method} {request.url.path}")
+    return response
