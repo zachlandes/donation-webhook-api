@@ -16,5 +16,5 @@ services:
 
 databases:
   - name: webhook-db
-    region: your-preferred-region
+    region: oregon
     plan: free

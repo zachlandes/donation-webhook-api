@@ -25,7 +25,7 @@ class Donation(Base):
 
 class DonationCreate(BaseModel):
     chargeId: str
-    partnerDonationId: str | None
+    partnerDonationId: str | None # new union syntax requires python 3.10+
     firstName: str | None
     lastName: str | None
     email: str | None
