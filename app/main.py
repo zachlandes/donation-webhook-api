@@ -59,3 +59,7 @@ async def get_donations(token: str, db: Session = Depends(get_db)):
 @app.get("/health")
 async def health_check():
     return {"status": "healthy"}
+
+@app.get("/")
+async def root():
+    return {"message": "Welcome to the Donation Webhook Service"}
