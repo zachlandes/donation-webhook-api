@@ -8,6 +8,11 @@ app = FastAPI()
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+# Create tables on startup
+@app.on_event("startup")
+async def startup_event():
+    models.Base.metadata.create_all(bind=database.engine)
+
 # Dependency
 def get_db():
     db = database.SessionLocal()

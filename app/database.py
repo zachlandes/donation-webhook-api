@@ -5,11 +5,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-DATABASE_URL = os.getenv("DATABASE_URL")
-
-if not DATABASE_URL:
-    logger.error("DATABASE_URL environment variable is not set")
-    raise ValueError("DATABASE_URL must be set")
+DATABASE_URL = "sqlite:////data/webhook.db"
 
 try:
     engine = create_engine(DATABASE_URL)

@@ -7,14 +7,9 @@ services:
     envVars:
       - key: SECRET_TOKEN
         sync: false
-      - key: DATABASE_URL
-        fromDatabase:
-          name: webhook-db
-          property: connectionString
     healthCheckPath: /health
     autoDeploy: true
-
-databases:
-  - name: webhook-db
-    region: oregon
-    plan: free
+    disk:
+      name: sqlite-data
+      mountPath: /data
+      sizeGB: 1
