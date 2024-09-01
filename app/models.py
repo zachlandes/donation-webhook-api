@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, Float, DateTime, JSON
 from sqlalchemy.ext.declarative import declarative_base
-from pydantic import BaseModel
+from pydantic import BaseModel, Extra
 from datetime import datetime
 
 Base = declarative_base()
@@ -14,7 +14,7 @@ class Donation(Base):
     firstName = Column(String, nullable=True)
     lastName = Column(String, nullable=True)
     email = Column(String, nullable=True)
-    toNonprofit = Column(JSON)  # Changed to JSON type
+    toNonprofit = Column(JSON)
     amount = Column(Float)
     netAmount = Column(Float)
     currency = Column(String)
@@ -25,18 +25,18 @@ class Donation(Base):
 
 class DonationCreate(BaseModel):
     chargeId: str
-    partnerDonationId: str | None # new union syntax requires python 3.10+
-    firstName: str | None
-    lastName: str | None
-    email: str | None
+    partnerDonationId: str | None = None
+    firstName: str | None = None
+    lastName: str | None = None
+    email: str | None = None
     toNonprofit: dict
     amount: float
     netAmount: float
     currency: str
     frequency: str
     donationDate: datetime
-    publicTestimony: str | None
-    privateNote: str | None
+    publicTestimony: str | None = None
+    privateNote: str | None = None
 
     class Config:
-        from_attributes = True
+        extra = Extra.allow  # This allows additional fields
